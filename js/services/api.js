@@ -1,4 +1,3 @@
-// js/modules/api.js
 const API_URL = "http://localhost:3000";
 
 export async function fetchData(endpoint) {
