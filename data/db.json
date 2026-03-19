@@ -1,0 +1,348 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Laptop Pro 14\"",
+      "sku": "LP-001",
+      "categoryId": 1,
+      "supplierId": 1,
+      "price": 45000,
+      "quantity": 8,
+      "reorderLevel": 5,
+      "unit": "pcs",
+      "description": "Professional 14-inch laptop"
+    },
+    {
+      "id": 2,
+      "name": "Wireless Mouse",
+      "sku": "WM-002",
+      "categoryId": 1,
+      "supplierId": 1,
+      "price": 850,
+      "quantity": 3,
+      "reorderLevel": 10,
+      "unit": "pcs",
+      "description": "Wireless optical mouse"
+    },
+    {
+      "id": 3,
+      "name": "Office Chair",
+      "sku": "OC-003",
+      "categoryId": 2,
+      "supplierId": 2,
+      "price": 3500,
+      "quantity": 12,
+      "reorderLevel": 5,
+      "unit": "pcs",
+      "description": "Ergonomic office chair"
+    },
+    {
+      "id": 4,
+      "name": "A4 Paper Ream",
+      "sku": "PA-004",
+      "categoryId": 3,
+      "supplierId": 3,
+      "price": 120,
+      "quantity": 2,
+      "reorderLevel": 20,
+      "unit": "ream",
+      "description": "A4 paper - 500 sheets"
+    },
+    {
+      "id": 5,
+      "name": "USB-C Hub",
+      "sku": "UC-005",
+      "categoryId": 1,
+      "supplierId": 1,
+      "price": 1200,
+      "quantity": 15,
+      "reorderLevel": 8,
+      "unit": "pcs",
+      "description": "7-in-1 USB-C hub"
+    },
+    {
+      "id": 6,
+      "name": "Monitor 24\"",
+      "sku": "MN-006",
+      "categoryId": 1,
+      "supplierId": 1,
+      "price": 12000,
+      "quantity": 4,
+      "reorderLevel": 5,
+      "unit": "pcs",
+      "description": "24-inch Full HD monitor"
+    },
+    {
+      "id": 7,
+      "name": "Standing Desk",
+      "sku": "SD-007",
+      "categoryId": 2,
+      "supplierId": 2,
+      "price": 8500,
+      "quantity": 6,
+      "reorderLevel": 3,
+      "unit": "pcs",
+      "description": "Electric height-adjustable desk"
+    },
+    {
+      "id": 8,
+      "name": "Printer Ink Set",
+      "sku": "PI-008",
+      "categoryId": 3,
+      "supplierId": 3,
+      "price": 450,
+      "quantity": 1,
+      "reorderLevel": 5,
+      "unit": "set",
+      "description": "4-color printer ink set"
+    }
+  ],
+
+  "categories": [
+    {
+      "id": 1,
+      "name": "Electronics",
+      "description": "Electronic devices and accessories"
+    },
+    {
+      "id": 2,
+      "name": "Furniture",
+      "description": "Office and home furniture"
+    },
+    {
+      "id": 3,
+      "name": "Stationery",
+      "description": "Office supplies and paper products"
+    }
+  ],
+
+  "suppliers": [
+    {
+      "id": 1,
+      "name": "TechWorld Egypt",
+      "contact": "Ahmed Karim",
+      "email": "sales@techworld.eg",
+      "phone": "+20 100 123 4567",
+      "address": "Cairo, Egypt"
+    },
+    {
+      "id": 2,
+      "name": "Cairo Furnish",
+      "contact": "Sara Nour",
+      "email": "info@cairofurnish.com",
+      "phone": "+20 111 987 6543",
+      "address": "Giza, Egypt"
+    },
+    {
+      "id": 3,
+      "name": "Delta Office",
+      "contact": "Mohamed Ali",
+      "email": "orders@deltaoffice.eg",
+      "phone": "+20 122 456 7890",
+      "address": "Alexandria, Egypt"
+    }
+  ],
+
+  "purchaseOrders": [
+    {
+      "id": 1,
+      "supplierId": 1,
+      "orderDate": "2025-03-20T10:00:00Z",
+      "status": "pending",
+      "items": [
+        {
+          "productId": 2,
+          "productName": "Wireless Mouse",
+          "quantity": 20,
+          "unitPrice": 750,
+          "total": 15000
+        }
+      ],
+      "totalAmount": 15000,
+      "notes": "Urgent order"
+    },
+    {
+      "id": 2,
+      "supplierId": 3,
+      "orderDate": "2025-03-10T09:00:00Z",
+      "receivedDate": "2025-03-12T14:30:00Z",
+      "status": "received",
+      "items": [
+        {
+          "productId": 4,
+          "productName": "A4 Paper Ream",
+          "quantity": 50,
+          "unitPrice": 110,
+          "total": 5500
+        }
+      ],
+      "totalAmount": 5500,
+      "notes": "10% discount applied"
+    },
+    {
+      "id": 3,
+      "supplierId": 2,
+      "orderDate": "2025-03-22T11:00:00Z",
+      "status": "pending",
+      "items": [
+        {
+          "productId": 3,
+          "productName": "Office Chair",
+          "quantity": 10,
+          "unitPrice": 3200,
+          "total": 32000
+        },
+        {
+          "productId": 7,
+          "productName": "Standing Desk",
+          "quantity": 5,
+          "unitPrice": 8000,
+          "total": 40000
+        }
+      ],
+      "totalAmount": 72000
+    }
+  ],
+
+  "stockAdjustments": [
+    {
+      "id": 1,
+      "productId": 8,
+      "productName": "Printer Ink Set",
+      "type": "decrease",
+      "quantity": 3,
+      "reason": "Damaged goods",
+      "date": "2025-03-12T14:30:00Z",
+      "oldQuantity": 4,
+      "newQuantity": 1
+    },
+    {
+      "id": 2,
+      "productId": 4,
+      "productName": "A4 Paper Ream",
+      "type": "decrease",
+      "quantity": 15,
+      "reason": "Theft/Loss",
+      "date": "2025-03-14T10:00:00Z",
+      "oldQuantity": 17,
+      "newQuantity": 2
+    },
+    {
+      "id": 3,
+      "productId": 2,
+      "productName": "Wireless Mouse",
+      "type": "increase",
+      "quantity": 10,
+      "reason": "Inventory count adjustment",
+      "date": "2025-03-15T09:00:00Z",
+      "oldQuantity": 3,
+      "newQuantity": 13
+    }
+  ],
+
+  "activityLog": [
+    {
+      "id": 1,
+      "action": "CREATE_PRODUCT",
+      "details": "New product added: Laptop Pro 14\" (SKU: LP-001)",
+      "user": "admin",
+      "timestamp": "2025-03-10T09:00:00Z"
+    },
+    {
+      "id": 2,
+      "action": "RECEIVE_ORDER",
+      "details": "Purchase Order #2 received - Added 50x A4 Paper Ream to stock",
+      "user": "admin",
+      "timestamp": "2025-03-10T11:00:00Z"
+    },
+    {
+      "id": 3,
+      "action": "STOCK_ADJUSTMENT",
+      "details": "Stock adjustment: -3 Printer Ink Set (Reason: Damaged goods)",
+      "user": "admin",
+      "timestamp": "2025-03-12T14:30:00Z"
+    },
+    {
+      "id": 4,
+      "action": "STOCK_ADJUSTMENT",
+      "details": "Stock adjustment: -15 A4 Paper Ream (Reason: Theft/Loss)",
+      "user": "admin",
+      "timestamp": "2025-03-14T10:00:00Z"
+    },
+    {
+      "id": 5,
+      "action": "LOW_STOCK_ALERT",
+      "details": "Low stock alert: A4 Paper Ream (Quantity: 2, Reorder level: 20)",
+      "user": "system",
+      "timestamp": "2025-03-14T10:05:00Z"
+    },
+    {
+      "id": 6,
+      "action": "LOW_STOCK_ALERT",
+      "details": "Low stock alert: Wireless Mouse (Quantity: 3, Reorder level: 10)",
+      "user": "system",
+      "timestamp": "2025-03-14T10:05:00Z"
+    },
+    {
+      "id": 7,
+      "action": "CREATE_PURCHASE_ORDER",
+      "details": "Purchase Order #3 created for supplier: Cairo Furnish - Amount: 72000",
+      "user": "admin",
+      "timestamp": "2025-03-22T11:00:00Z"
+    },
+    {
+      "id": 8,
+      "action": "STOCK_ADJUSTMENT",
+      "details": "Stock adjustment: +10 Wireless Mouse (Reason: Inventory count adjustment)",
+      "user": "admin",
+      "timestamp": "2025-03-15T09:00:00Z"
+    },
+    {
+      "id": 9,
+      "action": "UPDATE_PRODUCT",
+      "details": "Product updated: Monitor 24\" - Price changed from 12500 to 12000",
+      "user": "admin",
+      "timestamp": "2025-03-16T13:00:00Z"
+    },
+    {
+      "id": 10,
+      "action": "LOW_STOCK_ALERT",
+      "details": "Low stock alert: Printer Ink Set (Quantity: 1, Reorder level: 5)",
+      "user": "system",
+      "timestamp": "2025-03-16T13:05:00Z"
+    }
+  ],
+
+  "lowStockAlerts": [
+    {
+      "id": 1,
+      "productId": 4,
+      "productName": "A4 Paper Ream",
+      "sku": "PA-004",
+      "currentQuantity": 2,
+      "reorderLevel": 20,
+      "date": "2025-03-14T10:05:00Z",
+      "status": "active"
+    },
+    {
+      "id": 2,
+      "productId": 2,
+      "productName": "Wireless Mouse",
+      "sku": "WM-002",
+      "currentQuantity": 3,
+      "reorderLevel": 10,
+      "date": "2025-03-14T10:05:00Z",
+      "status": "resolved"
+    },
+    {
+      "id": 3,
+      "productId": 8,
+      "productName": "Printer Ink Set",
+      "sku": "PI-008",
+      "currentQuantity": 1,
+      "reorderLevel": 5,
+      "date": "2025-03-16T13:05:00Z",
+      "status": "active"
+    }
+  ]
+}
