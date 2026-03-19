@@ -92,7 +92,7 @@ inventory-management-system/
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/your-username/inventory-management-system.git
+git clone https://github.com/AbdulrahmanSiraj/inventory-management-system.git
 cd inventory-management-system
 
 # 2. Install dependencies
