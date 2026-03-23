@@ -5,6 +5,8 @@
 import { loadProducts } from "./pages/products.js";
 import { loadCategories } from "./pages/categories.js";
 import { loadSuppliers } from "./pages/suppliers.js";
+import { loadReports } from "./js/pages/reports.js";
+
 
 document.addEventListener("DOMContentLoaded", function () {
   //   loadDashboard();
@@ -35,6 +37,9 @@ document.addEventListener("DOMContentLoaded", function () {
           break;
         case "Suppliers":
           loadSuppliers();
+          break;
+        case "Reports":
+          loadReports();
           break;
       }
     });
