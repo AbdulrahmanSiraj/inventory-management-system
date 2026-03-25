@@ -28,8 +28,8 @@ export default function renderTable(data, cols, actions = true) {
       if (actions) {
         table += `
                 <td>
-                  <button class="action-btn edit-btn" onclick="handleEdit(${item.id})"><i class="bi bi-pencil"></i></button>
-                  <button class="action-btn delete-btn" onclick="handleDelete(${item.id})"><i class="bi bi-trash"></i></button>
+                  <button class="action-btn edit-btn" data-id=${item.id}><i class="bi bi-pencil"></i></button>
+                  <button class="action-btn delete-btn" data-id=${item.id}><i class="bi bi-trash"></i></button>
                 </td>
               `;
       }
