@@ -5,15 +5,18 @@ import {
   updateData,
   deleteData,
 } from "../services/api.js";
+import renderPagination, { paginateData } from "../components/pagination.js";
 
 let products = [];
 let categories = [];
 let suppliers = [];
+let lastFiltered = [];
+let currentPage = 1;
+let PAGE_SIZE = 2;
 
 export async function loadCategories() {
   await loadData();
   renderCategories();
-  exposeTableHandlers();
   setupEventListeners();
 }
 
@@ -21,6 +24,7 @@ async function loadData() {
   products = await fetchData("products");
   categories = await fetchData("categories");
   suppliers = await fetchData("suppliers");
+  lastFiltered = [...categories];
 }
 
 //* render the whole html of Categories page
@@ -49,7 +53,8 @@ function renderCategories() {
 
 //* to bring the table whatever there is a filter/ search/ all cats
 function getTableHtml(filteredCategories = categories) {
-  let tableData = filteredCategories.map((c) => ({
+  const paginated = paginateData(filteredCategories, currentPage, PAGE_SIZE);
+  let tableData = paginated.map((c) => ({
     id: c.id,
     name: c.name,
     description: c.description || "-",
@@ -58,7 +63,10 @@ function getTableHtml(filteredCategories = categories) {
 
   let columns = ["id", "name", "description", "products"];
 
-  return renderTable(tableData, columns);
+  return (
+    renderTable(tableData, columns)
+    + renderPagination(filteredCategories.length, currentPage, PAGE_SIZE)
+  );
 }
 
 //* for all event listeners
@@ -66,10 +74,45 @@ function setupEventListeners() {
   document
     .getElementById("searchCat")
     ?.addEventListener("input", filterCategories);
-}
 
-function exposeTableHandlers() {
-  window.handleDelete = handleDelete;
+  //^ Edit & delete product
+  document
+    .querySelector("#categoriesTableContainer")
+    .addEventListener("click", function (e) {
+      // const editBtn = e.target.closest(".edit-btn");
+      // // debugger;
+      // if (editBtn) {
+      //   const id = editBtn.dataset.id;
+      //   handleProduct_Edit_Add(id);
+      // }
+
+      //& delete
+      const deleteBtn = e.target.closest(".delete-btn");
+      if (deleteBtn) {
+        const id = deleteBtn.dataset.id;
+        handleDelete(id);
+      }
+
+      //& pagination
+      const pageBtn = e.target.closest(".page-link");
+      if (pageBtn) {
+        const page = Number(pageBtn.dataset.page);
+        const totalPages = Math.ceil(lastFiltered.length / PAGE_SIZE);
+        if (page < 1 || page > totalPages) return;
+        currentPage = page;
+        document.getElementById("categoriesTableContainer").innerHTML =
+          getTableHtml(lastFiltered);
+        return;
+      }
+      const pageSizeSelect = e.target.closest(".page-size-select");
+      if (pageSizeSelect) {
+        PAGE_SIZE = Number(pageSizeSelect.value);
+        currentPage = 1;
+        document.getElementById("categoriesTableContainer").innerHTML =
+          getTableHtml(lastFiltered);
+        return;
+      }
+    });
 }
 
 async function handleDelete(id) {
@@ -87,6 +130,8 @@ async function handleDelete(id) {
 
   await deleteData("categories", id);
   await loadData();
+  lastFiltered = [...categories];
+  currentPage = 1;
   filterCategories();
 }
 
@@ -101,6 +146,9 @@ function filterCategories() {
       || (c.description && c.description.toLowerCase().includes(searchTerm))
     );
   });
+
+  lastFiltered = filtered;
+  currentPage = 1;
 
   //& Change Table data
   document.getElementById("categoriesTableContainer").innerHTML =

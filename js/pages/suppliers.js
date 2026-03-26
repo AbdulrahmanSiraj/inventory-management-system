@@ -6,14 +6,18 @@ import {
   deleteData,
 } from "../services/api.js";
 
+import renderPagination, { paginateData } from "../components/pagination.js";
+
 let products = [];
 let categories = [];
 let suppliers = [];
+let lastFiltered = [];
+let currentPage = 1;
+let PAGE_SIZE = 2;
 
 export async function loadSuppliers() {
   await loadData();
   renderSuppliers();
-  exposeTableHandlers();
   setupEventListeners();
 }
 
@@ -21,6 +25,7 @@ async function loadData() {
   products = await fetchData("products");
   categories = await fetchData("categories");
   suppliers = await fetchData("suppliers");
+  lastFiltered = [...suppliers];
 }
 
 //* render the whole html of Suppliers page
@@ -48,7 +53,8 @@ function renderSuppliers() {
 
 //* to bring the table whatever there is a filter/ search
 function getTableHtml(filteredSuppliers = suppliers) {
-  let tableData = filteredSuppliers.map((s) => ({
+  const paginated = paginateData(filteredSuppliers, currentPage, PAGE_SIZE);
+  let tableData = paginated.map((s) => ({
     id: s.id,
     name: s.name,
     contact: s.contact || "-",
@@ -68,7 +74,10 @@ function getTableHtml(filteredSuppliers = suppliers) {
     "products",
   ];
 
-  return renderTable(tableData, columns);
+  return (
+    renderTable(tableData, columns)
+    + renderPagination(filteredSuppliers.length, currentPage, PAGE_SIZE)
+  );
 }
 
 //* for all event listeners
@@ -76,10 +85,45 @@ function setupEventListeners() {
   document
     .getElementById("searchSup")
     ?.addEventListener("input", filterSuppliers);
-}
 
-function exposeTableHandlers() {
-  window.handleDelete = handleDelete;
+  //^ Edit & delete product
+  document
+    .querySelector("#suppliersTableContainer")
+    .addEventListener("click", function (e) {
+      // const editBtn = e.target.closest(".edit-btn");
+      // // debugger;
+      // if (editBtn) {
+      //   const id = editBtn.dataset.id;
+      //   handleProduct_Edit_Add(id);
+      // }
+
+      //& delete
+      const deleteBtn = e.target.closest(".delete-btn");
+      if (deleteBtn) {
+        const id = deleteBtn.dataset.id;
+        handleDelete(id);
+      }
+
+      //& pagination
+      const pageBtn = e.target.closest(".page-link");
+      if (pageBtn) {
+        const page = Number(pageBtn.dataset.page);
+        const totalPages = Math.ceil(lastFiltered.length / PAGE_SIZE);
+        if (page < 1 || page > totalPages) return;
+        currentPage = page;
+        document.getElementById("suppliersTableContainer").innerHTML =
+          getTableHtml(lastFiltered);
+        return;
+      }
+      const pageSizeSelect = e.target.closest(".page-size-select");
+      if (pageSizeSelect) {
+        PAGE_SIZE = Number(pageSizeSelect.value);
+        currentPage = 1;
+        document.getElementById("suppliersTableContainer").innerHTML =
+          getTableHtml(lastFiltered);
+        return;
+      }
+    });
 }
 
 async function handleDelete(id) {
@@ -97,6 +141,8 @@ async function handleDelete(id) {
 
   await deleteData("suppliers", id);
   await loadData();
+  lastFiltered = [...suppliers];
+  currentPage = 1;
   filterSuppliers();
 }
 
@@ -114,6 +160,9 @@ function filterSuppliers() {
       || (s.address && s.address.toLowerCase().includes(searchTerm))
     );
   });
+
+  lastFiltered = filtered;
+  currentPage = 1;
 
   //& Update Table
   document.getElementById("suppliersTableContainer").innerHTML =
