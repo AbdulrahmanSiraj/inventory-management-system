@@ -1,10 +1,9 @@
 import renderTable from "../components/table.js";
 import {
   fetchData,
-  postData,
-  updateData,
   deleteData,
 } from "../services/api.js";
+import { getModal } from "../components/modal.js";
 
 let products = [];
 let categories = [];
@@ -13,7 +12,6 @@ let suppliers = [];
 export async function loadSuppliers() {
   await loadData();
   renderSuppliers();
-  exposeTableHandlers();
   setupEventListeners();
 }
 
@@ -76,11 +74,36 @@ function setupEventListeners() {
   document
     .getElementById("searchSup")
     ?.addEventListener("input", filterSuppliers);
+
+  //^ Edit & delete product 
+  document.querySelector("#suppliersTableContainer").addEventListener('click',function(e){
+    const editBtn= e.target.closest('.edit-btn');
+    const deleteBtn = e.target.closest('.delete-btn');
+    if(editBtn){
+      const id = editBtn.dataset.id;
+      handleEdit(id);
+    }
+    else if(deleteBtn){
+      const id = deleteBtn.dataset.id;
+      handleDelete(id);
+    }
+  }); 
+  //^ add
+  document.querySelector("#addSupplierBtn").addEventListener('click',function(){
+    handleAdd();
+  });
 }
 
-function exposeTableHandlers() {
-  window.handleDelete = handleDelete;
+
+//* add button
+function handleAdd(id=''){
+  getModal('suppliers', 'Add',id);
+} 
+//* edit button
+function handleEdit(id){
+  getModal('suppliers','Edit',id);
 }
+
 
 async function handleDelete(id) {
   let s = suppliers.find((e) => e.id == id);

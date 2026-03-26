@@ -1,11 +1,9 @@
 import renderTable from "../components/table.js";
 import {
   fetchData,
-  postData,
-  updateData,
   deleteData,
 } from "../services/api.js";
-
+import {getModal} from "../components/modal.js";
 let products = [];
 let categories = [];
 let suppliers = [];
@@ -13,7 +11,6 @@ let suppliers = [];
 export async function loadProducts() {
   await loadData();
   renderProducts();
-  exposeTableHandlers();
   setupEventListeners();
 }
 
@@ -107,39 +104,25 @@ function setupEventListeners() {
     ?.addEventListener("change", function () {
       filterProducts();
     });
-  // /////////////////////////
   //^ Edit & delete product 
   document.querySelector("#productsTableContainer").addEventListener('click',function(e){
     const editBtn= e.target.closest('.edit-btn');
-    // debugger;
+    const deleteBtn = e.target.closest('.delete-btn');
     if(editBtn){
       const id = editBtn.dataset.id;
-      handleProduct_Edit_Add(id);
+      handleEdit(id);
+    }
+    else if(deleteBtn){
+      const id = deleteBtn.dataset.id;
+      handleDelete(id);
     }
   }); 
   //^ add
   document.querySelector("#addProductBtn").addEventListener('click',function(){
-    handleProduct_Edit_Add();
-  })
+    handleAdd();
+  });
 }
 
-function exposeTableHandlers() {
-  window.handleDelete = handleDelete;
-}
-
-async function handleDelete(id) {
-  let p = products.find((e) => e.id == id);
-  if (!p) return;
-
-  let ok = confirm(`Delete product "${p.name}"?`);
-  if (!ok) return;
-
-  await deleteData("products", id);
-  await loadData();
-
-  // keep current filters/search
-  filterProducts();
-}
 
 //* Filter and Search function
 function filterProducts() {
@@ -213,200 +196,25 @@ function getStatus(quantity) {
   else return `<span class="status-badge status-in">In stock</span>`;
 }
 
-//?????????????????????????????????????????????? handle edit for products
-function handleProduct_Edit_Add(id=''){
-  //^ display form modal with data of id
-  displayProductForm(id);
-
+//* add button
+function handleAdd(id=''){
+  getModal('products', 'Add',id);
 } 
-
-
-
-//* Display modal with form for product
-async function displayProductForm(id){
-  //^ if user click edit button then i must select which product he clicked
-  let product='';
-  if(id){
-    product =  await fetchData(`products/${id}`);
-  }
-  //^ remove if there is another modal was shown
-  document.querySelector("#productModal")?.remove();
-  //^ make html code for modal contain form if edit then data will be exist in inputs if add then won't be data exist in inputs
-  const html=`
-  <div class="modal fade" id="productModal" tabindex="-1">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4>${id?'Edit':'Add'} Product</h4>
-        </div>
-        <div class="modal-body">
-          <form id='productForm'>
-            <div class="row mb-3">
-              <div class="col-6">
-                <label class="text-secondary" class="form-label" for="name">Product Name *</label>
-                <input type="text" class="form-control" name="name" placeholder="e.g Laptop Pro" value= "${id?product.name:''}" >
-                <div class="text-danger fw-bold errorMes errorMes-name"></div>
-              </div>
-              <div class="col-6">
-                <label class="text-secondary" class="form-label" for="sku">SKU *</label>
-                <input type="text" class="form-control" name='sku'  placeholder="e.g LP-001" value="${id?product.sku:''}">
-                <div class="text-danger fw-bold errorMes errorMes-sku"></div>
-              </div>
-            </div>
-
-            <div class="row mb-3">
-              <div class="col-6">
-                <label class="text-secondary" class="form-label" for="categoryId">Category *</label>
-                ${displayOptions('category',product.categoryId,categories)}
-              </div>
-              <div class="col-6">
-                <label class="text-secondary" class="form-label" for="supplierId">Supplier *</label>
-                ${displayOptions('supplier',product.supplierId,suppliers)}
-              </div>
-            </div>
-
-
-            <div class="row mb-3">
-              <div class="col-6">
-                <label class="text-secondary" class="form-label" for="price">Pice (EGP) *</label>
-                <input type="number" class="form-control" name="price" placeholder="0.00" value= "${id?product.price:''}" >
-                <div class="text-danger fw-bold errorMes errorMes-price"></div>
-
-              </div>
-              <div class="col-6">
-                <label class="text-secondary" class="form-label" for="quantity">Quantity *</label>
-                <input type="number" class="form-control" name='quantity'  placeholder="0" value="${id?product.quantity:''}">
-                <div class="text-danger fw-bold errorMes errorMes-quantity"></div>
-
-              </div>
-            </div>
-
-
-            <div class="row mb-3">
-              <div class="col-6">
-                <label class="text-secondary" class="form-label" for="reorderLevel">Reorder Level *</label>
-                <input type="number" class="form-control" name="reorderLevel" placeholder="5" value= "${id?product.reorderLevel:''}" >
-                <div class="text-danger fw-bold errorMes errorMes-reorderLevel"></div>
-
-              </div>
-              <div class="col-6">
-                <label class="text-secondary" class="form-label" for="unit">Unit *</label>
-                <input type="text" class="form-control" name='unit'  placeholder="Pcs / kg / box" value="${id?product.unit:''}">
-                <div class="text-danger fw-bold errorMes errorMes-unit"></div>
-
-              </div>
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary save-btn">Save</button>
-          <button type="button" class="btn btn-secondary close-btn" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  `;
-  //^ show modal
-  document.body.insertAdjacentHTML('beforeend',html);
-  const modal = new bootstrap.Modal(document.querySelector("#productModal"));
-  modal.show();
-  // event
-  document.querySelector('.save-btn').addEventListener('click',async function(e){
-    const form = document.querySelector("#productForm");
-    let data = Object.fromEntries(new FormData(form));
-    if(isVaildProductData(data,id)){
-      if(id){//edit
-        products=await updateData('products',id,data);
-      }
-      else{//add
-        products=await postData('products',data);
-      }
-      await loadData();
-      renderProducts();
-    }
-  });
-  // cancel
-  document.querySelector(".close-btn").addEventListener('click', function() {
-  if (confirm("Are you sure you want to discard changes?")) {
-    const modalElement = document.querySelector("#productModal");
-    const modalInstance = bootstrap.Modal.getInstance(modalElement);
-    modalInstance.hide();
-  }
-});
+//* edit button
+function handleEdit(id){
+  getModal('products','Edit',id);
 }
+//* delete button
+async function handleDelete(id) {
+  let p = products.find((e) => e.id == id);
+  if (!p) return;
 
-function displayOptions(type,id,data){
-  let selectInput = `<select name='${type==='category'?'categoryId':'supplierId'}' class="form-select w-100">`;
-  data.forEach(function(item){
-    let selected='';
-    if(Number(item.id)===Number(id))
-      selected='selected';
-    selectInput+=`<option value="${item.id}" ${selected}>${item.name}</option>`
-  })
-  selectInput+=`</select>`;
-  return selectInput;
-}
+  let ok = confirm(`Delete product "${p.name}"?`);
+  if (!ok) return;
 
-function isVaildProductData(data,id){
-  //^ remove all old error messages
-  document.querySelectorAll('.errorMes').forEach(item => item.innerHTML = '');
-  
-  const v1 = isVaildName(data.name);
-  const v2 = isVaildSku(data.sku, id); 
-  const v3 = isVaildNumber(data.price, 'price');
-  const v4 = isVaildNumber(data.quantity, 'quantity');
-  const v5 = isVaildUnit(data.unit);
-  return v1 && v2 && v3 && v4&&v5;
-} 
-function isVaildName(name){
-  if(name.length===0){
-    document.querySelector('.errorMes-name').innerHTML=`Product Name is required`;
-    return false;
-  }
-  if(name.length<=3||name.length>25){
-    document.querySelector('.errorMes-name').innerHTML=`Product Name should be bigger than 3 charchter and less than 25`;
-    return false;
-  }
-  return true;
-}
-function isVaildSku(sku,id){
-  debugger;
-  //^ if empty
-  if(sku.length===0){
-    document.querySelector('.errorMes-sku').innerHTML=`Product SKU is required`;
-    return false;
-  }
-  //^ if not vaild format LETTERS-3Digit of number> ABC-123
-  const skuRegex = /^[A-Z]+-\d{3}$/;
-  if (!skuRegex.test(sku)) {
-    document.querySelector('.errorMes-sku').innerHTML="Invalid SKU format. Please use 'LETTERS-000'.";
-    return false;
-  }
+  await deleteData("products", id);
+  await loadData();
 
-  return true;
-}
-function isVaildNumber(num,type){
-  if(num.length===0){
-    document.querySelector(`.errorMes-${type}`).innerHTML=`Product ${type} is required`;
-    return false;
-  }
-  num = Number(num);
-  if(num<=0){
-    document.querySelector(`.errorMes-${type}`).innerHTML=`Product ${type} should be bigger than zero`;
-    return false;
-  }
-  return true;
-}
-function isVaildUnit(unit){
-  if(unit.length===0){
-    document.querySelector(`.errorMes-unit`).innerHTML=`Product unit is required`;
-    return false;
-  }
-  let units = ['pcs','kg','box'];
-  unit=unit.toLowerCase();
-  if(!units.includes(unit)){
-    document.querySelector(`.errorMes-unit`).innerHTML=`Product unit should be pcs or kg or box`;
-    return false;
-  }
-  return true;
+  // keep current filters/search
+  filterProducts();
 }
