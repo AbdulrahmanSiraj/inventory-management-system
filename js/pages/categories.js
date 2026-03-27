@@ -111,7 +111,7 @@ function setupEventListeners() {
       }
     });
 
-  //& Add product
+  //& Add Category
   document
     .querySelector("#addCategoryBtn")
     .addEventListener("click", function () {

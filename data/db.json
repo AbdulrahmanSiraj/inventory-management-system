@@ -18,7 +18,7 @@
       "categoryId": 1,
       "supplierId": 1,
       "price": 850,
-      "quantity": 3,
+      "quantity": 23,
       "reorderLevel": 10,
       "unit": "pcs",
       "description": "Wireless optical mouse"
@@ -29,7 +29,7 @@
       "categoryId": "2",
       "supplierId": "2",
       "price": "3500",
-      "quantity": "9",
+      "quantity": 19,
       "reorderLevel": "15",
       "unit": "pcs",
       "id": "3"
@@ -40,7 +40,7 @@
       "categoryId": "3",
       "supplierId": "3",
       "price": "120",
-      "quantity": "0",
+      "quantity": 10,
       "reorderLevel": "20",
       "unit": "pcs",
       "id": "4"
@@ -75,7 +75,7 @@
       "categoryId": 2,
       "supplierId": 2,
       "price": 8500,
-      "quantity": 6,
+      "quantity": 16,
       "reorderLevel": 3,
       "unit": "pcs",
       "description": "Electric height-adjustable desk"
@@ -92,15 +92,15 @@
       "id": "8"
     },
     {
-      "id": "ef47",
       "name": "laptop pro 15",
       "sku": "LP-009",
       "categoryId": "1",
       "supplierId": "1",
-      "price": "10000",
+      "price": "50000",
       "quantity": "10",
       "reorderLevel": "15",
-      "unit": "Pcs"
+      "unit": "Pcs",
+      "id": "ef47"
     },
     {
       "name": "A3 Paper",
@@ -112,6 +112,28 @@
       "reorderLevel": "5",
       "unit": "box",
       "id": "c5c9"
+    },
+    {
+      "id": "8a98",
+      "name": "Red Dress",
+      "sku": "DR-012",
+      "categoryId": "99f0",
+      "supplierId": "d5be",
+      "price": "1000",
+      "quantity": "10",
+      "reorderLevel": "2",
+      "unit": "box"
+    },
+    {
+      "id": "9200",
+      "name": "blue T-shirt",
+      "sku": "TS-014",
+      "categoryId": "99f0",
+      "supplierId": "d5be",
+      "price": "500",
+      "quantity": "20",
+      "reorderLevel": "5",
+      "unit": "box"
     }
   ],
   "categories": [
@@ -134,6 +156,11 @@
       "id": "99f0",
       "name": "Clothes",
       "description": "Everything human wears"
+    },
+    {
+      "id": "4636",
+      "name": "food",
+      "description": "Everything human eats"
     }
   ],
   "suppliers": [
@@ -160,14 +187,22 @@
       "email": "orders@deltaoffice.eg",
       "phone": "+20 122 456 7890",
       "address": "Alexandria, Egypt"
+    },
+    {
+      "id": "d5be",
+      "name": "Shein",
+      "contact": "Sohaila Hesham",
+      "email": "sohaila.hesham456@gmail.com",
+      "phone": "+201060689680",
+      "address": "Teraa, st"
     }
   ],
-  "purchaseOrders": [
+  "orders": [
     {
       "id": "1",
       "supplierId": 1,
       "orderDate": "2025-03-20T10:00:00Z",
-      "status": "pending",
+      "status": "received",
       "items": [
         {
           "productId": 2,
@@ -202,7 +237,7 @@
       "id": "3",
       "supplierId": 2,
       "orderDate": "2025-03-22T11:00:00Z",
-      "status": "pending",
+      "status": "received",
       "items": [
         {
           "productId": 3,
@@ -220,6 +255,100 @@
         }
       ],
       "totalAmount": 72000
+    },
+    {
+      "id": "dbe8",
+      "supplierId": "3",
+      "expectedDate": "2026-03-29",
+      "items": [
+        {
+          "productId": "c5c9",
+          "productName": "A3 Paper",
+          "quantity": 20
+        }
+      ],
+      "status": "pending",
+      "orderDate": "2026-03-27"
+    },
+    {
+      "id": "d5c5",
+      "supplierId": "3",
+      "expectedDate": "2026-03-28",
+      "items": [
+        {
+          "productId": "4",
+          "productName": "A4 Paper Ream",
+          "quantity": 10
+        }
+      ],
+      "status": "received",
+      "orderDate": "2026-03-27"
+    },
+    {
+      "id": "3e62",
+      "supplierId": "d5be",
+      "expectedDate": "2026-03-30",
+      "items": [
+        {
+          "productId": "9200",
+          "productName": "blue T-shirt",
+          "quantity": 10
+        },
+        {
+          "productId": "8a98",
+          "productName": "Red Dress",
+          "quantity": 20
+        }
+      ],
+      "status": "pending",
+      "orderDate": "2026-03-27"
+    },
+    {
+      "id": "6d1f",
+      "supplierId": "d5be",
+      "expectedDate": "2026-03-30",
+      "items": [
+        {
+          "productId": "9200",
+          "productName": "blue T-shirt",
+          "quantity": 10
+        },
+        {
+          "productId": "8a98",
+          "productName": "Red Dress",
+          "quantity": 20
+        }
+      ],
+      "status": "pending",
+      "orderDate": "2026-03-27"
+    },
+    {
+      "id": "a34b",
+      "supplierId": "1",
+      "expectedDate": "2026-03-30",
+      "items": [
+        {
+          "productId": "1",
+          "productName": "Laptop Pro 14",
+          "quantity": 10
+        }
+      ],
+      "status": "pending",
+      "orderDate": "2026-03-27"
+    },
+    {
+      "id": "0742",
+      "supplierId": "2",
+      "expectedDate": "",
+      "items": [
+        {
+          "productId": "7",
+          "productName": "Standing Desk",
+          "quantity": 5
+        }
+      ],
+      "status": "received",
+      "orderDate": "2026-03-27"
     }
   ],
   "stockAdjustments": [

@@ -154,3 +154,31 @@ function isVaildAddress(address){
   }
   return true;
 }
+
+
+
+//* Validation Functions for purchase orders
+//* Validation Functions for orders
+export function isVaildOrderData(data) {
+  document.querySelectorAll('.errorMes').forEach(item => item.innerHTML = '');
+
+  const v1 = isVaildSupplier(data.supplierId);
+  const v2 = isVaildItems(data.items);
+  return v1 && v2;
+}
+
+function isVaildSupplier(supplierId) {
+  if (!supplierId || supplierId === "") {
+    document.querySelector('.errorMes-supplierId').innerHTML = `Supplier is required`;
+    return false;
+  }
+  return true;
+}
+
+function isVaildItems(items) {
+  if (!items || items.length === 0) {
+    document.querySelector('.errorMes-items').innerHTML = `Please add at least one item`;
+    return false;
+  }
+  return true;
+}

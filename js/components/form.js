@@ -1,10 +1,8 @@
-import {
-  fetchData,
-} from "../services/api.js";
+import { fetchData } from "../services/api.js";
 export async function makeProductForm(id) {
-  let product='';
-  if(id){
-    product =  await fetchData(`products/${id}`);
+  let product = "";
+  if (id) {
+    product = await fetchData(`products/${id}`);
   }
   const categories = await fetchData("categories");
   const suppliers = await fetchData("suppliers");
@@ -68,22 +66,21 @@ export async function makeProductForm(id) {
   </form>`;
   return html;
 }
-function displayProductsOptions(type,id,data){
-  let selectInput = `<select name='${type==='category'?'categoryId':'supplierId'}' class="form-select w-100">`;
-  data.forEach(function(item){
-    let selected='';
-    if(Number(item.id)===Number(id))
-      selected='selected';
-    selectInput+=`<option value="${item.id}" ${selected}>${item.name}</option>`
-  })
-  selectInput+=`</select>`;
+function displayProductsOptions(type, id, data) {
+  let selectInput = `<select name='${type === "category" ? "categoryId" : "supplierId"}' class="form-select w-100">`;
+  data.forEach(function (item) {
+    let selected = "";
+    if (Number(item.id) === Number(id)) selected = "selected";
+    selectInput += `<option value="${item.id}" ${selected}>${item.name}</option>`;
+  });
+  selectInput += `</select>`;
   return selectInput;
 }
 
 export async function makeCategoryForm(id) {
-  let category='';
-  if(id){
-    category =  await fetchData(`categories/${id}`);
+  let category = "";
+  if (id) {
+    category = await fetchData(`categories/${id}`);
   }
   let html = `
   <form>
@@ -107,9 +104,9 @@ export async function makeCategoryForm(id) {
 }
 
 export async function makeSupplierForm(id) {
-    let supplier='';
-  if(id){
-    supplier =  await fetchData(`suppliers/${id}`);
+  let supplier = "";
+  if (id) {
+    supplier = await fetchData(`suppliers/${id}`);
   }
   let html = `
   <form>
@@ -151,4 +148,54 @@ export async function makeSupplierForm(id) {
 
   </form>`;
   return html;
+}
+
+export async function makeOrderForm() {
+  const suppliers = await fetchData("suppliers");
+  const products = await fetchData("products");
+
+  const supplierOptions = suppliers
+    .map((s) => `<option value="${s.id}">${s.name}</option>`)
+    .join("");
+
+  const productOptions = products
+    .map(
+      (p) => `<option value="${p.id}" data-name="${p.name}">${p.name}</option>`,
+    )
+    .join("");
+
+  return `
+    <form id="appForm">
+      <div class="row mb-3">
+        <div class="col-6">
+          <label class="text-secondary form-label">Supplier *</label>
+          <select name="supplierId" class="form-select">
+            <option value="">Select supplier</option>
+            ${supplierOptions}
+          </select>
+          <div class="text-danger fw-bold errorMes errorMes-supplierId"></div>
+        </div>
+        <div class="col-6">
+          <label class="text-secondary form-label">Expected Date</label>
+          <input type="date" class="form-control" name="expectedDate">
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="text-secondary form-label">Order Items</label>
+        <div class="d-flex gap-2 mb-2">
+          <select id="productSelect" class="form-select">
+            <option value="">Select product</option>
+            ${productOptions}
+          </select>
+          <input type="number" id="productQty" class="form-control" placeholder="Qty" style="width: 100px;" min="1" value="1">
+          <button type="button" class="btn btn-primary px-3" id="addItemBtn">+</button>
+        </div>
+        <div id="itemsList" class="p-3 rounded" style="background:#f8fafc; min-height: 60px;">
+          <p class="text-muted small mb-0" id="noItemsMsg">No items added yet</p>
+        </div>
+        <div class="text-danger fw-bold errorMes errorMes-items"></div>
+      </div>
+    </form>
+  `;
 }
