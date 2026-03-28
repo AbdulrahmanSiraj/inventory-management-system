@@ -12,7 +12,7 @@ export default function renderTable(data, cols, actions = true) {
     table += `<th>${col.toUpperCase()}</th>`;
   });
   if (actions) {
-    table += `<th>Actions</th>`;
+    table += `<th>ACTIONS</th>`;
   }
   table += `
               </tr>
