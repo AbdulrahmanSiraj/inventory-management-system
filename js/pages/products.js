@@ -39,11 +39,11 @@ function renderProducts() {
       <i class="bi bi-search text-muted"></i>
       <input type="text" id="searchProd" placeholder="Search products..." 
         class="form-control form-control-sm border-0 shadow-none">
-      <select id="categoryFilter" class="form-select form-select-sm border-0 shadow-none" style="width: 160px;">
+      <select id="categoryFilter" class="form-select form-select-sm border-0 shadow-none form-select-product-category">
         <option value="">All Categories</option>
         ${categoryOptions}
       </select>
-      <select id="statusFilter" class="form-select form-select-sm border-0 shadow-none" style="width: 130px;">
+      <select id="statusFilter" class="form-select form-select-sm border-0 shadow-none form-select-product-status">
         <option value="">All Status</option>
         <option value="in">In Stock</option>
         <option value="low">Low Stock</option>
