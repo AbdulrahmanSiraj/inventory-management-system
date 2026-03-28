@@ -349,6 +349,34 @@
       ],
       "status": "received",
       "orderDate": "2026-03-27"
+    },
+    {
+      "id": "4036",
+      "supplierId": "1",
+      "expectedDate": "2026-04-30",
+      "items": [
+        {
+          "productId": "5",
+          "productName": "USB-C Hub",
+          "quantity": 3
+        }
+      ],
+      "status": "pending",
+      "orderDate": "2026-03-28"
+    },
+    {
+      "id": "c366",
+      "supplierId": "2",
+      "expectedDate": "2026-04-09",
+      "items": [
+        {
+          "productId": "1",
+          "productName": "Laptop Pro 14",
+          "quantity": 4
+        }
+      ],
+      "status": "pending",
+      "orderDate": "2026-03-28"
     }
   ],
   "stockAdjustments": [
