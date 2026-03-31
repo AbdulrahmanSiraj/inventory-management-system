@@ -72,7 +72,7 @@ function renderActivities() {
 
 //* filter by search text Or type filter
 function filterActivities() {
-  //^1. get value for search input and filter 
+  //^1. get value for search input and filter
   const searchTerm = document
     .getElementById("searchActivity")
     .value.toLowerCase();
@@ -85,20 +85,19 @@ function filterActivities() {
     return true;
   });
 
-  //^ set current page to one 
+  //^ set current page to one
   currentPage = 1;
   //^ render content in page based on new data filter
   updateActivityContent();
-  //^ render new status 
+  //^ render new status
   updateStats();
 }
 
 //* re-render only the list + pagination
 function updateActivityContent() {
-  document.getElementById("activityContent").innerHTML =
-    getActivityListHtml();
+  document.getElementById("activityContent").innerHTML = getActivityListHtml();
 }
-//* if user made any search with input search or filter then we will show to him number of found it element 
+//* if user made any search with input search or filter then we will show to him number of found it element
 function updateStats() {
   const statsDiv = document.getElementById("searchStats");
   if (!statsDiv) return;
@@ -111,11 +110,11 @@ function updateStats() {
 }
 
 function setupEventListeners() {
-  //* 1. search 
+  //* 1. search
   document
     .getElementById("searchActivity")
     ?.addEventListener("input", filterActivities);
-
+    
   //* 2. filter
   document
     .getElementById("typeFilter")

@@ -26,13 +26,17 @@
       </div>
 
       <div class="user-info">
-        <i class="bi bi-person-circle"></i>
-        <div>
+        <div class="user-avatar-wrap">
+          <i class="bi bi-person-circle user-avatar"></i>
+        </div>
+        <div class="user-details">
           <span id="userName">Guest User</span>
           <small id="userRole">Not signed in</small>
         </div>
-        <i id="logoutBtn" class="bi bi-box-arrow-right logout-btn" role="button"
-          aria-label="Logout" title="Logout"></i>
+        <button id="logoutBtn" class="logout-btn" type="button"
+          aria-label="Logout" title="Logout">
+          <i class="bi bi-box-arrow-right"></i>
+        </button>
       </div>
 
       <nav class="sidebar-nav">

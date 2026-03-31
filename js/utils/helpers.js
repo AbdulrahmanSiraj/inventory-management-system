@@ -307,29 +307,66 @@ export function getPendingOrdersCount(orders) {
 }
 
 //* Activity log — shared with Activity page and Dashboard
-export function getActionStyle(action) {
-  if (action.includes("STOCK_ADJUSTMENT"))
+export function normalizeActivity(activity = {}) {
+  const fallbackMessage = String(
+    activity.message || activity.details || "Activity recorded",
+  );
+  const normalizedAction =
+    activity.action
+    || (fallbackMessage.toLowerCase().includes("logged in")
+      ? "USER_LOGIN"
+      : fallbackMessage.toLowerCase().includes("logged out")
+        ? "USER_LOGOUT"
+        : "INFO");
+
+  return {
+    ...activity,
+    action: normalizedAction,
+    details: activity.details || activity.message || "Activity recorded",
+    timestamp:
+      activity.timestamp
+      || activity.createdAt
+      || activity.updatedAt
+      || activity.time
+      || new Date().toISOString(),
+  };
+}
+
+export function getActionStyle(action = "") {
+  const safeAction = String(action);
+
+  if (safeAction.includes("STOCK_ADJUSTMENT"))
     return { color: "warning", label: "adjust" };
-  if (action.includes("RECEIVE_ORDER"))
+  if (safeAction.includes("RECEIVE_ORDER"))
     return { color: "primary", label: "order" };
-  if (action.includes("CREATE_PURCHASE_ORDER"))
+  if (safeAction.includes("CREATE_PURCHASE_ORDER"))
     return { color: "primary", label: "order" };
-  if (action.includes("CREATE_PRODUCT"))
+  if (safeAction.includes("CREATE_PRODUCT"))
     return { color: "success", label: "add" };
-  if (action.includes("UPDATE_PRODUCT"))
+  if (safeAction.includes("UPDATE_PRODUCT"))
     return { color: "success", label: "update" };
-  if (action.includes("DELETE_PRODUCT"))
-    return { color: "danger", label: "delete" }; // ✅ ADDED: delete product action style
-  if (action.includes("DELETE_CATEGORY"))
-    return { color: "danger", label: "delete" }; // ✅ ADDED: delete category action style
-  if (action.includes("DELETE_SUPPLIER"))
-    return { color: "danger", label: "delete" }; // ✅ ADDED: delete supplier action style
-  if (action.includes("LOW_STOCK_ALERT"))
+  if (safeAction.includes("DELETE_PRODUCT"))
+    return { color: "danger", label: "delete" };
+  if (safeAction.includes("DELETE_CATEGORY"))
+    return { color: "danger", label: "delete" };
+  if (safeAction.includes("DELETE_SUPPLIER"))
+    return { color: "danger", label: "delete" };
+  if (safeAction.includes("LOW_STOCK_ALERT"))
     return { color: "danger", label: "alert" };
+  if (safeAction.includes("USER_LOGIN"))
+    return { color: "success", label: "login" };
+  if (safeAction.includes("USER_LOGOUT"))
+    return { color: "secondary", label: "logout" };
   return { color: "secondary", label: "info" };
 }
 export function formatActivityTimestamp(timestamp) {
+  if (!timestamp) return "Unknown time";
+
   const date = new Date(timestamp);
+  if (Number.isNaN(date.getTime())) {
+    return String(timestamp);
+  }
+
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, "0");
   const day = String(date.getDate()).padStart(2, "0");
@@ -338,14 +375,15 @@ export function formatActivityTimestamp(timestamp) {
   return `${year}-${month}-${day} ${hours}:${minutes}`;
 }
 export function activityRowHtml(activity) {
-  const { color, label } = getActionStyle(activity.action);
-  const date = formatActivityTimestamp(activity.timestamp);
+  const normalizedActivity = normalizeActivity(activity);
+  const { color, label } = getActionStyle(normalizedActivity.action);
+  const date = formatActivityTimestamp(normalizedActivity.timestamp);
   return `
     <div class="d-flex align-items-center justify-content-between py-3 border-bottom">
       <div class="d-flex align-items-start gap-3">
         <span class="mt-1 rounded-circle bg-${color} activity-dot"></span>
         <div>
-          <div class="fw-medium">${activity.details}</div>
+          <div class="fw-medium">${normalizedActivity.details}</div>
           <small class="text-muted">${date}</small>
         </div>
       </div>

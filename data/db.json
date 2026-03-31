@@ -110,12 +110,12 @@
       "categoryId": 1,
       "supplierId": 1,
       "price": 12000,
-      "quantity": 4,
+      "quantity": 9,
       "reorderLevel": 5,
       "unit": "pcs",
       "description": "24-inch Full HD monitor",
       "createdAt": "2026-01-20T08:45:00Z",
-      "updatedAt": "2026-03-16T13:00:00Z"
+      "updatedAt": "2026-03-31T15:49:31.016Z"
     },
     {
       "id": "7",
@@ -152,12 +152,12 @@
       "categoryId": 1,
       "supplierId": 1,
       "price": 2200,
-      "quantity": 7,
+      "quantity": 15,
       "reorderLevel": 5,
       "unit": "pcs",
       "description": "Mechanical gaming keyboard",
       "createdAt": "2026-01-28T11:00:00Z",
-      "updatedAt": "2026-01-28T11:00:00Z"
+      "updatedAt": "2026-03-31T15:49:31.041Z"
     },
     {
       "id": "10",
@@ -235,11 +235,11 @@
       "categoryId": 1,
       "supplierId": 1,
       "price": 50000,
-      "quantity": 0,
+      "quantity": 21,
       "reorderLevel": 20,
       "unit": "pcs",
       "createdAt": "2026-03-29T20:09:44.917Z",
-      "updatedAt": "2026-03-29T20:26:33.270Z"
+      "updatedAt": "2026-03-31T14:45:51.532Z"
     },
     {
       "name": "Laptop-17-pro",
@@ -259,10 +259,10 @@
       "categoryId": "4",
       "supplierId": "4",
       "price": "500",
-      "quantity": "10",
+      "quantity": 40,
       "reorderLevel": "5",
       "unit": "box",
-      "updatedAt": "2026-03-31T13:39:51.187Z",
+      "updatedAt": "2026-03-31T14:47:38.566Z",
       "id": "18"
     },
     {
@@ -309,11 +309,10 @@
       "updatedAt": "2026-02-01T10:00:00Z"
     },
     {
-      "id": "0a20",
       "name": "food",
-      "description": "Everything human eats",
-      "createdAt": "2026-03-31T13:13:58.005Z",
-      "updatedAt": "2026-03-31T13:13:58.005Z"
+      "description": "Everything human eat",
+      "updatedAt": "2026-03-31T15:37:31.859Z",
+      "id": "0a20"
     }
   ],
   "suppliers": [
@@ -431,7 +430,7 @@
       "supplierId": 1,
       "orderDate": "2026-03-25T08:00:00Z",
       "expectedDate": "2026-04-01T08:00:00Z",
-      "status": "pending",
+      "status": "received",
       "items": [
         {
           "productId": 6,
@@ -450,7 +449,7 @@
       ],
       "totalAmount": 73500,
       "createdAt": "2026-03-25T08:00:00Z",
-      "updatedAt": "2026-03-25T08:00:00Z"
+      "updatedAt": "2026-03-31T15:49:30.984Z"
     },
     {
       "id": "5",
@@ -490,10 +489,26 @@
           "quantity": 30
         }
       ],
-      "status": "pending",
+      "status": "received",
       "orderDate": "2026-03-29T00:00:00Z",
       "createdAt": "2026-03-29T20:25:32.106Z",
-      "updatedAt": "2026-03-29T20:25:32.106Z"
+      "updatedAt": "2026-03-31T14:47:38.554Z"
+    },
+    {
+      "id": "0e18",
+      "supplierId": "1",
+      "expectedDate": "2026-03-31",
+      "items": [
+        {
+          "productId": "16",
+          "productName": "laptop-pro-16",
+          "quantity": 21
+        }
+      ],
+      "status": "received",
+      "orderDate": "2026-03-31",
+      "createdAt": "2026-03-31T14:45:33.394Z",
+      "updatedAt": "2026-03-31T14:45:51.521Z"
     }
   ],
   "stockAdjustments": [
@@ -726,6 +741,121 @@
       "user": "Sohaila Hesham",
       "createdAt": "2026-03-31T14:24:37.481Z",
       "updatedAt": "2026-03-31T14:24:37.481Z"
+    },
+    {
+      "id": "b734",
+      "message": "User Sohaila Hesham logged in",
+      "time": "31/03/2026, 16:41:09",
+      "user": "Sohaila Hesham",
+      "createdAt": "2026-03-31T14:41:09.302Z",
+      "updatedAt": "2026-03-31T14:41:09.302Z"
+    },
+    {
+      "id": "c2da",
+      "message": "User Sohaila Hesham logged out",
+      "time": "31/03/2026, 16:41:40",
+      "user": "Sohaila Hesham",
+      "createdAt": "2026-03-31T14:41:40.896Z",
+      "updatedAt": "2026-03-31T14:41:40.896Z"
+    },
+    {
+      "id": "dc2b",
+      "message": "User Sohaila Hesham logged in",
+      "time": "31/03/2026, 16:41:58",
+      "user": "Sohaila Hesham",
+      "createdAt": "2026-03-31T14:41:58.162Z",
+      "updatedAt": "2026-03-31T14:41:58.162Z"
+    },
+    {
+      "id": "05c9",
+      "action": "CREATE_PURCHASE_ORDER",
+      "details": "Purchase Order created — 1 item(s) from supplier",
+      "user": "admin",
+      "timestamp": "2026-03-31T14:45:33.408Z",
+      "createdAt": "2026-03-31T14:45:33.408Z",
+      "updatedAt": "2026-03-31T14:45:33.408Z"
+    },
+    {
+      "id": "d44b",
+      "message": "User Sohaila Hesham logged out",
+      "time": "31/03/2026, 16:58:42",
+      "user": "Sohaila Hesham",
+      "createdAt": "2026-03-31T14:58:42.293Z",
+      "updatedAt": "2026-03-31T14:58:42.293Z"
+    },
+    {
+      "id": "924e",
+      "message": "User Admin User logged in",
+      "time": "31/03/2026, 16:59:00",
+      "user": "Admin User",
+      "createdAt": "2026-03-31T14:59:00.554Z",
+      "updatedAt": "2026-03-31T14:59:00.554Z"
+    },
+    {
+      "id": "8fa5",
+      "message": "User Admin User logged out",
+      "time": "31/03/2026, 17:14:40",
+      "user": "Admin User",
+      "createdAt": "2026-03-31T15:14:40.272Z",
+      "updatedAt": "2026-03-31T15:14:40.272Z"
+    },
+    {
+      "id": "f9cb",
+      "message": "User Admin User logged in",
+      "time": "31/03/2026, 17:15:03",
+      "user": "Admin User",
+      "createdAt": "2026-03-31T15:15:03.502Z",
+      "updatedAt": "2026-03-31T15:15:03.502Z"
+    },
+    {
+      "id": "48fa",
+      "action": "USER_LOGOUT",
+      "details": "User Admin User logged out",
+      "timestamp": "2026-03-31T15:49:01.658Z",
+      "user": "Admin User",
+      "createdAt": "2026-03-31T15:49:01.658Z",
+      "updatedAt": "2026-03-31T15:49:01.658Z"
+    },
+    {
+      "id": "edde",
+      "action": "USER_LOGIN",
+      "details": "User Sohaila Hesham logged in",
+      "timestamp": "2026-03-31T15:49:15.830Z",
+      "user": "Sohaila Hesham",
+      "createdAt": "2026-03-31T15:49:15.830Z",
+      "updatedAt": "2026-03-31T15:49:15.830Z"
+    },
+    {
+      "id": "f339",
+      "message": "User Sohaila Hesham logged out",
+      "time": "31/03/2026, 17:51:24",
+      "user": "Sohaila Hesham",
+      "createdAt": "2026-03-31T15:51:24.239Z",
+      "updatedAt": "2026-03-31T15:51:24.239Z"
+    },
+    {
+      "id": "0431",
+      "message": "User Sohaila Hesham logged in",
+      "time": "31/03/2026, 17:55:12",
+      "user": "Sohaila Hesham",
+      "createdAt": "2026-03-31T15:55:12.636Z",
+      "updatedAt": "2026-03-31T15:55:12.636Z"
+    },
+    {
+      "id": "aeba",
+      "message": "User Sohaila Hesham logged out",
+      "time": "31/03/2026, 21:55:32",
+      "user": "Sohaila Hesham",
+      "createdAt": "2026-03-31T19:55:32.238Z",
+      "updatedAt": "2026-03-31T19:55:32.238Z"
+    },
+    {
+      "id": "72dd",
+      "message": "User Sohaila Hesham logged in",
+      "time": "31/03/2026, 21:55:48",
+      "user": "Sohaila Hesham",
+      "createdAt": "2026-03-31T19:55:48.994Z",
+      "updatedAt": "2026-03-31T19:55:48.994Z"
     }
   ],
   "lowStockAlerts": [

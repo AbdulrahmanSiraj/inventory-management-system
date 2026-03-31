@@ -29,16 +29,16 @@ function renderDashboard() {
 
   const alertHtml = lowStock.length
     ? `
-    <div class="alert alert-warning d-flex align-items-start gap-2 mb-4" role="alert">
+    <div class="alert alert-warning d-flex align-items-start gap-2 mb-4 dashboard-alert" role="alert">
       <i class="bi bi-exclamation-triangle-fill flex-shrink-0 mt-1"></i>
-      <span>${lowStock.length} product(s) are low on stock: ${lowStock.map((p) => p.name).join(", ")}</span>
+      <span>${lowStock.length} product ${lowStock.length == 1 ? "" : "s"} are low on stock: ${lowStock.map((p) => p.name).join(", ")}</span>
     </div>`
     : "";
 
   const statsHtml = `
-    <div class="row g-3 mb-4">
-      <div class="col-6 col-lg-3">
-        <div class="card border-primary shadow-sm h-100">
+    <div class="row g-3 mb-4 dashboard-stats">
+      <div class="col-12 col-sm-6 col-xl-3">
+        <div class="card border-primary shadow-sm h-100 dashboard-stat-card">
           <div class="card-body">
             <div class="d-flex align-items-center gap-2 text-muted small">
               <i class="bi bi-box text-primary"></i>
@@ -49,8 +49,8 @@ function renderDashboard() {
           </div>
         </div>
       </div>
-      <div class="col-6 col-lg-3">
-        <div class="card ${lowStock.length ? "border-danger" : "border-success"} shadow-sm h-100">
+      <div class="col-12 col-sm-6 col-xl-3">
+        <div class="card ${lowStock.length ? "border-danger" : "border-success"} shadow-sm h-100 dashboard-stat-card">
           <div class="card-body">
             <div class="d-flex align-items-center gap-2 text-muted small">
               <i class="bi bi-exclamation-triangle ${lowStock.length ? "text-danger" : "text-success"}"></i>
@@ -61,8 +61,8 @@ function renderDashboard() {
           </div>
         </div>
       </div>
-      <div class="col-6 col-lg-3">
-        <div class="card border-warning shadow-sm h-100">
+      <div class="col-12 col-sm-6 col-xl-3">
+        <div class="card border-warning shadow-sm h-100 dashboard-stat-card">
           <div class="card-body">
             <div class="d-flex align-items-center gap-2 text-muted small">
               <i class="bi bi-cart-check text-warning"></i>
@@ -73,8 +73,8 @@ function renderDashboard() {
           </div>
         </div>
       </div>
-      <div class="col-6 col-lg-3">
-        <div class="card border-success shadow-sm h-100">
+      <div class="col-12 col-sm-6 col-xl-3">
+        <div class="card border-success shadow-sm h-100 dashboard-stat-card">
           <div class="card-body">
             <div class="d-flex align-items-center gap-2 text-muted small">
               <i class="bi bi-currency-dollar text-success"></i>
@@ -100,17 +100,17 @@ function renderDashboard() {
   const html = `
     ${alertHtml}
     ${statsHtml}
-    <div class="row g-3">
-      <div class="col-lg-6">
-        <div class="bg-white rounded border p-4 h-100">
+    <div class="row g-3 dashboard-panels">
+      <div class="col-12 col-xl-6">
+        <div class="bg-white rounded border p-4 h-100 dashboard-panel">
           <h6 class="fw-bold mb-3">Low Stock Products</h6>
           ${lowStockCardHtml}
         </div>
       </div>
-      <div class="col-lg-6">
-        <div class="bg-white rounded border p-4 h-100">
+      <div class="col-12 col-xl-6">
+        <div class="bg-white rounded border p-4 h-100 dashboard-panel">
           <h6 class="fw-bold mb-3">Recent Activity</h6>
-          <div id="dashRecentActivity">
+          <div id="dashRecentActivity" class="dashboard-activity-list">
             ${activityHtml}
           </div>
         </div>
@@ -128,12 +128,12 @@ function renderDashboardLowStockList(lowStock) {
     let qty = Number(p.quantity);
     let qtyClass = qty <= 0 ? "status-out" : "status-low";
     rows += `
-      <div class="d-flex align-items-center justify-content-between py-3 border-bottom">
-        <div>
+      <div class="d-flex align-items-center justify-content-between py-3 border-bottom dashboard-stock-row">
+        <div class="dashboard-stock-info">
           <div class="fw-medium">${p.name}</div>
           <small class="text-muted">SKU: ${p.sku}</small>
         </div>
-        <div class="text-end">
+        <div class="text-end dashboard-stock-meta">
           <span class="status-badge ${qtyClass}">${qty} ${p.unit}</span>
           <div class="small text-muted mt-1">Min: ${p.reorderLevel}</div>
         </div>
