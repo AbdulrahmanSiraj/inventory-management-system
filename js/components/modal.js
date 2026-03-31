@@ -16,6 +16,7 @@ import {
 } from "../utils/helpers.js";
 
 import { postData, updateData, fetchData } from "../services/api.js";
+import {getCurrentUser} from "../pages/login.js";
 
 export async function getModal(obj, action, id, onAfterSave) {
   const objModalName = `${obj}Modal`;
@@ -142,9 +143,10 @@ async function saveBtnEvent(obj, action, id, modal, modalElement, onAfterSave) {
       } else if (obj === "orders") {
         await postData("activityLog", {
           action: "CREATE_PURCHASE_ORDER",
-          details: `Purchase Order created — ${data.items.length} item(s) from supplier`,
-          user: "admin",
+          details: `Purchase Order created — ${data.items.length} item(s)`,
+          user: `${getCurrentUser()||'unKnown'}`,
           timestamp: GetCurrentDate(),
+          createdAt: new Date().toLocaleString(),
         });
       }
 

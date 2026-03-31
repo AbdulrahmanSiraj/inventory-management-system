@@ -1,8 +1,9 @@
 import renderTable from "../components/table.js";
-import { fetchData, updateData } from "../services/api.js";
+import { fetchData, postData, updateData } from "../services/api.js";
 import { getModal } from "../components/modal.js";
 import renderPagination, { paginateData } from "../components/pagination.js";
 import { sortData } from "../utils/helpers.js";
+import {getCurrentUser} from "../pages/login.js";
 let products = [];
 let categories = [];
 let suppliers = [];
@@ -246,6 +247,19 @@ async function handleReceive(id) {
     .getElementById("confirmReceiveBtn")
     .addEventListener("click", async function () {
       await updateData("orders", id, { ...order, status: "received" });
+      // debugger;
+      //* add receive order to activity log
+      try{
+      await postData("activityLog",{
+        action:"RECEIVE_ORDER",
+        details:`Receive Order that was created in ${order.orderDate} that contains ${order.items.length} item`,
+        user: getCurrentUser()?.name || "Unknown",
+        timestamp: new Date().toLocaleString(),
+        createdAt: new Date().toLocaleString(),
+      });
+    } catch(error){
+      console.log("insert receive order is failed ",error);
+    }
 
       for (let item of order.items) {
         let product = products.find((p) => p.id == item.productId);

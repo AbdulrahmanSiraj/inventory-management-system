@@ -24,7 +24,7 @@ async function loadData() {
 //* build the rows section with pagination applied
 function getActivityListHtml(data = lastFiltered) {
   const paginated = paginateData(data, currentPage, PAGE_SIZE);
-  const rows = paginated.map(activityRowHtml).join("");
+  const rows = paginated.map(data=> activityRowHtml(data)).join("");
   const list = rows
     ? rows
     : '<p class="text-muted text-center py-3">No activity found.</p>';

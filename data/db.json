@@ -82,12 +82,12 @@
       "categoryId": 2,
       "supplierId": 2,
       "price": 3500,
-      "quantity": 22,
+      "quantity": 25,
       "reorderLevel": 5,
       "unit": "pcs",
       "description": "Ergonomic office chair",
       "createdAt": "2026-01-12T09:15:00Z",
-      "updatedAt": "2026-01-12T09:15:00Z"
+      "updatedAt": "2026-03-31T17:23:15.532Z"
     },
     {
       "id": "4",
@@ -96,12 +96,12 @@
       "categoryId": 3,
       "supplierId": 3,
       "price": 120,
-      "quantity": 2,
+      "quantity": 5,
       "reorderLevel": 20,
       "unit": "ream",
       "description": "A4 paper - 500 sheets",
       "createdAt": "2026-01-15T14:20:00Z",
-      "updatedAt": "2026-03-14T10:00:00Z"
+      "updatedAt": "2026-03-31T17:06:21.904Z"
     },
     {
       "id": "6",
@@ -180,11 +180,11 @@
       "categoryId": 3,
       "supplierId": 3,
       "price": 85,
-      "quantity": 24,
+      "quantity": 25,
       "reorderLevel": 5,
       "unit": "pcs",
       "createdAt": "2026-02-05T14:45:00Z",
-      "updatedAt": "2026-03-22T12:00:00Z"
+      "updatedAt": "2026-03-31T16:31:44.842Z"
     },
     {
       "id": "12",
@@ -259,6 +259,7 @@
       "categoryId": "4",
       "supplierId": "4",
       "price": "500",
+      "quantity": 40,
       "quantity": 40,
       "reorderLevel": "5",
       "unit": "box",
@@ -431,6 +432,7 @@
       "orderDate": "2026-03-25T08:00:00Z",
       "expectedDate": "2026-04-01T08:00:00Z",
       "status": "received",
+      "status": "received",
       "items": [
         {
           "productId": 6,
@@ -489,6 +491,7 @@
           "quantity": 30
         }
       ],
+      "status": "received",
       "status": "received",
       "orderDate": "2026-03-29T00:00:00Z",
       "createdAt": "2026-03-29T20:25:32.106Z",
@@ -703,36 +706,40 @@
       "updatedAt": "2026-03-31T14:11:06.865Z"
     },
     {
-      "id": "84f1",
-      "message": "User Admin User logged out",
-      "time": "31/03/2026, 16:11:13",
+      "id": "33e8",
+      "action": "CREATE_PURCHASE_ORDER",
+      "details": "Purchase Order created — 1 item(s) from supplier",
+      "user": "admin",
+      "timestamp": "2026-03-31T17:11:50.306Z",
+      "createdAt": "2026-03-31T17:11:50.306Z",
+      "updatedAt": "2026-03-31T17:11:50.306Z"
+    },
+    {
+      "id": "f1df",
+      "action": "CREATE_PURCHASE_ORDER",
+      "details": "Purchase Order created — 2 item(s) from supplier",
+      "user": "admin",
+      "timestamp": "2026-03-31T17:14:56.409Z",
+      "createdAt": "2026-03-31T17:14:56.409Z",
+      "updatedAt": "2026-03-31T17:14:56.409Z"
+    },
+    {
+      "id": "ca4e",
+      "action": "RECEIVE_ORDER",
+      "details": "Receive Order that was created in 2026-03-31 that contains 2 item",
       "user": "Admin User",
-      "createdAt": "2026-03-31T14:11:13.353Z",
-      "updatedAt": "2026-03-31T14:11:13.353Z"
+      "timestamp": "3/31/2026, 7:15:05 PM",
+      "createdAt": "2026-03-31T17:15:05.227Z",
+      "updatedAt": "2026-03-31T17:15:05.227Z"
     },
     {
-      "id": "ccfb",
-      "message": "User Sohaila Hesham logged in",
-      "time": "31/03/2026, 16:11:38",
-      "user": "Sohaila Hesham",
-      "createdAt": "2026-03-31T14:11:38.059Z",
-      "updatedAt": "2026-03-31T14:11:38.059Z"
-    },
-    {
-      "id": "02aa",
-      "message": "User Sohaila Hesham logged out",
-      "time": "31/03/2026, 16:12:24",
-      "user": "Sohaila Hesham",
-      "createdAt": "2026-03-31T14:12:24.592Z",
-      "updatedAt": "2026-03-31T14:12:24.592Z"
-    },
-    {
-      "id": "ac67",
-      "message": "User Sohaila Hesham logged in",
-      "time": "31/03/2026, 16:13:20",
-      "user": "Sohaila Hesham",
-      "createdAt": "2026-03-31T14:13:20.211Z",
-      "updatedAt": "2026-03-31T14:13:20.211Z"
+      "id": "7eb1",
+      "action": "CREATE_PURCHASE_ORDER",
+      "details": "Purchase Order created — 1 item(s)",
+      "user": "[object Object]",
+      "timestamp": "2026-03-31T17:23:08.026Z",
+      "createdAt": "2026-03-31T17:23:08.026Z",
+      "updatedAt": "2026-03-31T17:23:08.026Z"
     },
     {
       "id": "0cbd",

@@ -60,9 +60,11 @@ async function handleLogin(event) {
 
     try {
       await postData("activityLog", {
-        message: `User ${user.name} logged in`,
-        time: new Date().toLocaleString(),
-        user: user.name,
+        action:'LOG_IN',
+        details: `${currentUser?.name || "Unknown"} logged in`,
+        user: currentUser?.name || "Unknown",
+        timestamp: new Date().toLocaleString(),
+        createdAt: new Date().toLocaleString(),
       });
     } catch (error) {
       console.error("Activity log error:", error);
@@ -144,9 +146,11 @@ export async function logout() {
 
   try {
     await postData("activityLog", {
-      message: `User ${currentUser?.name || "Unknown"} logged out`,
-      time: new Date().toLocaleString(),
+      action:'LOG_OUT',
+      details: `${currentUser?.name || "Unknown"} logged out`,
       user: currentUser?.name || "Unknown",
+      timestamp: new Date().toLocaleString(),
+      createdAt: new Date().toLocaleString(),
     });
   } catch (error) {
     console.error("Logout activity log error:", error);
